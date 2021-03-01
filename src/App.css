@@ -1,0 +1,93 @@
+body {
+	background-image: url("https://i.redd.it/4fxxbm4opjd31.jpg");
+	background-size: cover;
+	background-repeat: repeat;
+	background-attachment: fixed;
+}
+
+header {
+	height: 100px;
+	width: 100vw;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+header > div {
+	height: 100%;
+	width: 80%;
+	color: #007cd5;
+	background-color: #efefef;
+	font-family: cursive;
+	font-size: 50px;
+	font-weight: 200;
+	text-align: center;
+	animation: infinite 6s linear infinite;
+}
+
+.main {
+	width: 80%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.form-container {
+	width: 80%;
+	height: 50px;
+	border-radius: 10px;
+	margin: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+.form-container > form {
+	margin: 0 auto;
+	width: 80%;
+	height: 100%;
+	display: block;
+	margin-bottom: 20px;
+	margin-left: 275px;
+}
+
+form > input {
+	width: 60%;
+}
+
+button {
+	color: #007cd5;
+	background-color: black;
+	font-size: 12px;
+	margin: 5px;
+	padding: 5px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #007cd5;
+}
+
+.movie {
+	width: 80%;
+	height: 100px;
+
+	font-size: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 25px;
+	border-radius: 10px;
+	border-style: dashed;
+	border-color: yellow;
+	border-width: 2px;
+	background-color: black;
+	color: #007cd5;
+}
+
+.movie-list {
+	margin-left: 10px;
+}
+
+.complete {
+	text-decoration: line-through;
+}
