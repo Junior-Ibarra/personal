@@ -5,7 +5,7 @@ module.exports = {
         let { email, password, profile_pic } = req.body
         const db = req.app.get('db')
         if (!profile_pic) {
-            profile_pic = `https://robohash.org/${username}.png`
+            profile_pic = `https://robohash.org/${email}.png`
         }
         const results = db.user.find_user([email])
         const existingUser = results[0]
@@ -20,7 +20,7 @@ module.exports = {
 
         req.session.user = user
         return res.status(200).send(user)
-    }
+    },
     login: async (req, res) => {
         const { email, password } = req.body
         const db = req.app.get ('db')
@@ -39,15 +39,15 @@ module.exports = {
 
             req.session.user = existingUser
             return res.status(200).send(existingUser)
-    }
+    },
     getUser: async (req, res) => {
         if (!req.session.user){
             return res.sendStatus(404)
         }
         return res.status(200).send(req.session.user)
-    }
+    },
     logout: async(req, res) => {
         req.session.destroy()
         return res.sendStatus(200)
-    }
+    },
 }

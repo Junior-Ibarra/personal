@@ -1,32 +1,53 @@
-const movies = [{
-    id: 0,
-    title: 'movie movie',
-    director: 'Christopher Nolan',
-    edit: false,
-}]
+// const movies = [{
+//     id: 0,
+//     title: 'movie movie',
+//     director: 'Christopher Nolan',
+//     edit: false,
+// }]
 
-let id = 1
+// let id = 1
 module.exports = {
-getMovies: (req, res) => {
-    res.status(200).send(movies)
-},
-addMovie: (req, res) => {
-    const {title, director} = req.body
-    const newMovie = {id, title, director, edit: false}
-    movies.push(newMovie)
-    id++
-    res.status(200).send(movies)
-},
+    getWatched: async (req, res) => {
+        const {userId} = req.params
+        const db = req.app.get('db')
+        const movies = await db.movies.get_watched([userId])
+        res.status(200).send(movies)
+    },
 
-editMovie: (req, res) => {
-        const index = movies.findIndex( movie => movie.id === +req.params.id)
-    movies[index].title = req.body.title
-    res.status(200).send(movies)
+    getWatchlist: async (req, res) => {
+        const {userId} = req.params
+        const db = req.app.get('db')
+        const movies = await db.movies.get_watchlist([userId])
+        res.status(200).send(movies)
+    },
+    addMovie: async (req, res) => {
+        const {userId} = req.params
+        const {title, trailer, poster, isWatched} = req.body
+        console.log(isWatched)
+        const db = req.app.get('db')
+        const dateCreate = new Date()
+        await db.movies.add_movie([title, trailer, poster, dateCreate, userId, isWatched])
+        res.sendStatus(200)
+    },
 
-},
-deleteMovie: (req, res) => {
-    const index = movies.findIndex ( movie => movie.id === +req.params.id)
-    movies.splice(index, 1)
-    res.status(200).send(movies)
-}
+    editMovie: async (req, res) => {
+        const {title, trailer, poster} = req.body
+        const {id} = req.params
+        const db = req.app.get('db')
+        const updatedMovie = await db.movies.edit_movie([title, trailer, poster, id])
+        res.status(200).send(updatedMovie)
+    },
+    deleteMovie: async (req, res) => {
+        const {id} = req.params
+        const db = req.app.get('db')
+        await db.movies.delete_movie([id])
+        res.sendStatus(200)
+    },
+    getMovie: async (req, res) => {
+        const {id} = req.params
+        console.log(id)
+        const db = req.app.get('db')
+        const movie = await db.movies.get_movie([id])
+        res.status(200).send(movie[0])
+    },
 }

@@ -2,10 +2,11 @@ require ('dotenv').config()
 const massive = require('massive')
 const session = require('express-session')
 const express = require ('express')
-const ctrl = require('./controllers/movies.js')
+const moviesCtrl = require('./controllers/movies.js')
 const app = express()
+const userCtrl = require ('./controllers/users.js')
 
-const { SERVER_PORT, CONNECTION_STRING} = process.env
+const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
 
 app.use(express.json())
 
@@ -31,10 +32,12 @@ app.post('/api/auth/login', userCtrl.login)
 app.post('/api/auth/me', userCtrl.getUser)
 app.post('/api/auth/logout', userCtrl.logout)
 
-app.get('/api/movies', ctrl.getMovies)
-app.post('/api/movies', ctrl.addMovie)
-app.put('/api/movies/:id', ctrl.editMovie)
-app.delete('/api/movies/:id', ctrl.deleteMovie)
+app.get('/api/movies/watched/:userId', moviesCtrl.getWatched)
+app.get('/api/movies/watchlist/:userId', moviesCtrl.getWatchlist)
+app.post('/api/movies/:userId', moviesCtrl.addMovie)
+app.put('/api/movies/:id', moviesCtrl.editMovie)
+app.delete('/api/movies/:id', moviesCtrl.deleteMovie)
+app.get('/api/movies/:id', moviesCtrl.getMovie)
 
 app.listen(SERVER_PORT, () => console.log(`Listening on port ${SERVER_PORT}`))
 

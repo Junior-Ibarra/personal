@@ -10,11 +10,14 @@ CREATE TABLE movies (
     title VARCHAR(45) NOT NULL,
     trailer TEXT,
     poster TEXT,
-    date_create TIMESTAMP
-);
-CREATE TABLE usersMovies (
-    id SERIAL PRIMARY KEY,
+    date_created TIMESTAMP,
     user_id INT REFERENCES users(id) NOT NULL,
-    movies_id INT REFERENCES movies(id) NOT NULL,
-    status VARCHAR(20)
-)
+    is_watched BOOLEAN DEFAULT TRUE,
+    rating INT
+);
+-- CREATE TABLE usersMovies (
+--     id SERIAL PRIMARY KEY,
+--     movies_id INT REFERENCES movies(id) NOT NULL,
+    
+-- )
+-- -- add watched vs watchlist...reference user id

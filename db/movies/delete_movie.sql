@@ -1,2 +1,2 @@
-DELETE FROM helo_posts
-WHERE id = $1
+DELETE from movies
+WHERE id = $1;
